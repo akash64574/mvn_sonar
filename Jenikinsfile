@@ -7,7 +7,9 @@ agent any
          }
       }
       stage('Analysis'){
+      steps{
       sh '/opt/maven/bin/mvn clean verify sonar:sonar -Dsonar.password=admin -Dsonar.logi=admin'
+      }
       }
       stage('Build'){
       steps{
