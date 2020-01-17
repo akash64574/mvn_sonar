@@ -1,5 +1,18 @@
-node('master'){
-   stages{
- stage('git checkout scm')
-
- git 'https://github.com/akash64574/mvn_sonar/edit/master/Jenikinsfile
+pipeline{
+agent any
+   stages {
+      stage('git checkout scm') {
+         steps {
+            git 'https://github.com/akash64574/mvn_sonar.git'
+         }
+      }
+      stage('Analysis'){
+      sh '/opt/maven/bin/mvn clean verify sonar:sonar -Dsonar.password=admin -Dsonar.logi=admin'
+      }
+      stage('Build'){
+      steps{
+      sh '/opt/maven/bin/mvn clean install'
+         }
+      }
+   }
+}
